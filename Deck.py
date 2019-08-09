@@ -1,5 +1,5 @@
 from enum import Enum, unique
-from random import shuffle
+from random import shuffle, sample
 
 @unique
 class Suits(Enum):
@@ -40,19 +40,50 @@ class Card(object):
 
 class Deck(object):
     def __init__(self):
-        self.__cards = [Card(rank, suit) for rank in Ranks for suit in Suits]
+        self.__fullset = frozenset([Card(rank, suit) for rank in Ranks for suit in Suits])
+        self.__remaining_cards = list(self.__fullset)
+        self.__dealt_cards = list()
 
-    def get_cards(self):
-        return self.__cards
+    def get_fullset(self):
+        return self.__fullset
 
     def shuffle(self):
-        shuffle(self.__cards)
+        shuffle(self.__remaining_cards)
+
+    def reset(self):
+        self.__remaining_cards = list(self.__fullset)
+        self.__dealt_cards = list()
 
     def print_deck(self):
-        for card in self.__cards:
-            print(card)
+        print('Dealt: {}'.format(len(self.__dealt_cards)))
+        print('Remaining: {}'.format(len(self.__remaining_cards)))
+        print('Total: {}'.format(len(self.__fullset)))
+    
+    def deal_one(self):
+        if len(self.__remaining_cards) is 0:
+            return False
+        
+        dealt_card = sample(self.__remaining_cards, 1)[0]
+        self.__remaining_cards.remove(dealt_card)
+        self.__dealt_cards.append(dealt_card)
+
+        return dealt_card
+
+    def deal_n(self, n: int) -> list:
+        dealt_cards = list()
+        for i in range(n):
+            dealt_card = self.deal_one()
+
+            if not dealt_card:
+                return False
+            else:
+                dealt_cards.append(dealt_card)
+
+        return dealt_cards
 
 if __name__ == "__main__":
     d = Deck()
     d.shuffle()
+    d.print_deck()
+    print(d.deal_n(4))
     d.print_deck()
