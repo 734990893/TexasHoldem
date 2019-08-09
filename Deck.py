@@ -35,8 +35,8 @@ class Card(object):
     def get_suit(self):
         return self._suit
 
-    def __str__(self):
-        return str(self._rank.value) + ' ' + self._suit.value
+    def __repr__(self):
+        return f'<Card {self._rank} {self._suit}>'
 
 class Deck(object):
     def __init__(self):
