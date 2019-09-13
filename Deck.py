@@ -44,22 +44,22 @@ class Deck(object):
         self.__remaining_cards = list(self.__fullset)
         self.__dealt_cards = list()
 
-    def get_fullset(self):
+    def get_fullset(self) -> frozenset:
         return self.__fullset
 
-    def shuffle(self):
+    def shuffle(self) -> None:
         shuffle(self.__remaining_cards)
 
-    def reset(self):
+    def reset(self) -> None:
         self.__remaining_cards = list(self.__fullset)
         self.__dealt_cards = list()
 
-    def print_deck(self):
+    def print_deck(self) -> None:
         print('Dealt: {}'.format(len(self.__dealt_cards)))
         print('Remaining: {}'.format(len(self.__remaining_cards)))
         print('Total: {}'.format(len(self.__fullset)))
     
-    def deal_one(self):
+    def deal_one(self) -> Card:
         if len(self.__remaining_cards) is 0:
             return False
         
