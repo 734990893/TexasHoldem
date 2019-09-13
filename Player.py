@@ -5,10 +5,10 @@ class Player(object):
         self._name = name
         self._capital = 0
 
-    def set_capital(self, capital):
+    def set_capital(self, capital) -> None:
         self._capital = capital
 
-    def deduct_bet(self, bet):
+    def deduct_bet(self, bet) -> None:
         self._capital -= bet
 
     def __repr__(self):
