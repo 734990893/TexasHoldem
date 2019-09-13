@@ -1,12 +1,14 @@
 from enum import Enum, unique
 from random import shuffle, sample
 
+
 @unique
 class Suits(Enum):
     HEART = 'H'
     SPADE = 'S'
     CLUB = 'C'
     DIAMOND = 'D'
+
 
 @unique
 class Ranks(Enum):
@@ -24,6 +26,7 @@ class Ranks(Enum):
     Q = 12
     K = 13
 
+
 class Card(object):
     def __init__(self, rank, suit):
         self._rank = rank
@@ -31,16 +34,21 @@ class Card(object):
 
     def get_rank(self):
         return self._rank
-    
+
     def get_suit(self):
         return self._suit
 
     def __repr__(self):
         return f'<Card {self._rank} {self._suit}>'
 
+
 class Deck(object):
     def __init__(self):
-        self.__fullset = frozenset([Card(rank, suit) for rank in Ranks for suit in Suits])
+        self.__fullset = frozenset([Card(rank, suit)
+                                    for rank
+                                    in Ranks
+                                    for suit
+                                    in Suits])
         self.__remaining_cards = list(self.__fullset)
         self.__dealt_cards = list()
 
@@ -59,11 +67,11 @@ class Deck(object):
         print('Dealt: {}'.format(len(self.__dealt_cards)))
         print('Remaining: {}'.format(len(self.__remaining_cards)))
         print('Total: {}'.format(len(self.__fullset)))
-    
+
     def deal_one(self) -> Card:
         if len(self.__remaining_cards) is 0:
             return False
-        
+
         dealt_card = sample(self.__remaining_cards, 1)[0]
         self.__remaining_cards.remove(dealt_card)
         self.__dealt_cards.append(dealt_card)
@@ -81,6 +89,7 @@ class Deck(object):
                 dealt_cards.append(dealt_card)
 
         return dealt_cards
+
 
 if __name__ == "__main__":
     d = Deck()
