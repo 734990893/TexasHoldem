@@ -47,8 +47,9 @@ class Deck(object):
     def get_fullset(self) -> frozenset:
         return self.__fullset
 
-    def shuffle(self) -> None:
+    def shuffle(self) -> list:
         shuffle(self.__remaining_cards)
+        return self.__remaining_cards
 
     def reset(self) -> None:
         self.__remaining_cards = list(self.__fullset)
